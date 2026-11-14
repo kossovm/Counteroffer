@@ -95,16 +95,30 @@ jobs:
           test -f .env || { echo "~/counter/.env is missing"; exit 1; }
           echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
           export IMAGE_TAG
-          docker compose -p counter pull app
+          # one-time migration: containers of the old services `app`/`db` (the name `app` collided with
+          # Nice Almaty on the shared proxy network). No-op once they are gone.
+          for svc in app db; do
+            ids=$(docker ps -aq --filter label=com.docker.compose.project=counter --filter label=com.docker.compose.service=$svc)
+            if [ -n "$ids" ]; then docker rm -f $ids; fi
+          done
+          docker compose -p counter pull counter-app
           docker compose -p counter up -d --remove-orphans
           docker logout ghcr.io
           # remove only this project's old images, never touch anything else on the host
           docker image prune -af --filter "label=app=counter" --filter "until=2h" || true
+          cid=$(docker compose -p counter ps -q counter-app)
+          # guard: on the shared proxy network we must never answer to the neighbour's alias `app`
+          if docker inspect "$cid" -f '{{range .NetworkSettings.Networks}}{{range .Aliases}}{{println .}}{{end}}{{end}}' | grep -qx app; then
+            NET=$(grep -E '^PROXY_NETWORK=' .env | cut -d= -f2); NET=${NET:-nice-almaty_default}
+            docker network disconnect "$NET" "$cid" || true
+            echo "::error::counter-app answered to alias 'app' on the proxy network; disconnected it"
+            exit 1
+          fi
           for i in $(seq 1 30); do
-            status=$(docker inspect -f '{{.State.Health.Status}}' counter-app 2>/dev/null || echo starting)
+            status=$(docker inspect -f '{{.State.Health.Status}}' "$cid" 2>/dev/null || echo starting)
             [ "$status" = "healthy" ] && { echo "counter-app healthy"; exit 0; }
             sleep 2
           done
-          docker logs --tail 80 counter-app
+          docker logs --tail 80 "$cid"
           exit 1
           EOF

@@ -5,27 +5,32 @@
 #  - no published ports at all; Caddy (already running) reaches counter-app over a shared docker network
 #  - the database sits on a private network the proxy cannot see
 #  - hard memory caps so this stack can never starve the neighbour
+#
+# IMPORTANT: Compose registers every service name as a DNS alias on every network the service joins.
+# The shared proxy network already has a service called `app` (Nice Almaty). Service names here MUST be
+# unique on that network, otherwise Caddy load-balances the neighbour's traffic into this app.
 name: counter
 
 services:
-  app:
+  counter-app:
     image: ghcr.io/kossovm/counteroffer:${IMAGE_TAG:-latest}
-    container_name: counter-app
     restart: unless-stopped
     env_file: .env
     environment:
       DATABASE_URL: postgres://counter:${POSTGRES_PASSWORD}@counter-db:5432/counter
-      NODE_OPTIONS: --max-old-space-size=256
+      NODE_OPTIONS: --max-old-space-size=384
     depends_on:
-      db:
+      counter-db:
         condition: service_healthy
-    mem_limit: 384m
+    mem_limit: 512m
     cpus: 1.0
-    networks: [internal, proxy]
+    networks:
+      internal: {}
+      proxy:
+        aliases: [counter-app]
 
-  db:
+  counter-db:
     image: postgres:16
-    container_name: counter-db
     restart: unless-stopped
     environment:
       POSTGRES_USER: counter
@@ -33,10 +38,10 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     command: >
       postgres
-      -c shared_buffers=32MB
+      -c shared_buffers=64MB
       -c max_connections=20
-      -c work_mem=2MB
-      -c maintenance_work_mem=16MB
+      -c work_mem=4MB
+      -c maintenance_work_mem=32MB
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -44,7 +49,7 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
-    mem_limit: 192m
+    mem_limit: 256m
     cpus: 0.5
     networks: [internal]
 
