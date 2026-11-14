@@ -1,4 +1,6 @@
-# Counteroffer — rules for every Claude Code session in this repo
+# Holdline — rules for every Claude Code session in this repo
+
+Product name: **Holdline**. Repository name stays `Counteroffer`. Plan: `docs/PLAN.md`. Design: `docs/brandbook.html`.
 
 @AGENTS.md
 
@@ -20,10 +22,9 @@ Hackathon deadline: **15 Nov 2026, 11:00 Asia/Almaty (code freeze)**. Prod: http
 ## Who owns what (stay inside your folder unless asked)
 | Area | Paths | Owner session |
 |---|---|---|
-| Engine, LLM layer, DB, API routes | `src/engine/**`, `src/llm/**`, `src/db/**`, `src/app/api/**`, `drizzle/**` | maksim |
-| UI, design system, pages | `src/app/(app)/**`, `src/app/(marketing)/**`, `src/components/**`, `src/app/globals.css` | kerey |
-| Scenarios, archetypes, quiz copy | `src/content/**` | aziz |
-| Pitch deck, market numbers, docs | `docs/**`, `deck/**` | jafar |
+| Engine, LLM layer, DB, API routes, voice server endpoints | `src/engine/**`, `src/llm/**` (except `src/llm/eval/*.json`), `src/db/**`, `src/app/api/**`, `drizzle/**` | maksim |
+| UI, design system, pages, browser audio | `src/app/(app)/**`, `src/app/(marketing)/**`, `src/components/**`, `src/lib/client/**`, `src/app/globals.css` | kerey |
+| Scenario content, personas, objections, classifier eval cases, deck, docs | `src/content/**`, `src/llm/eval/*.json`, `docs/**`, `deck/**` | jafar |
 
 ## Workflow
 - Never commit to `main` directly and never push `main`. Work on a branch `<owner>/<topic>`, push the branch;
@@ -34,10 +35,13 @@ Hackathon deadline: **15 Nov 2026, 11:00 Asia/Almaty (code freeze)**. Prod: http
 - Do not run `docker`, `sudo`, `systemctl` or anything touching other projects on this server.
 - Dev server: `npm run dev -- -H 127.0.0.1 -p <your port>` (ports in `docs/TEAM.md`). Never bind 0.0.0.0.
 
-## Design rules (jury asked for "not AI design", inspired by Zimran products)
-- Dark indigo base, single violet accent, bold grotesque headings, flat blocks, generous spacing.
-- No glassmorphism, no rainbow gradients, no emoji as icons, no default component-library look.
-- Text first: short sentences, US English, numbers in USD.
+## Design rules
+`docs/brandbook.html` is the source of truth. In short:
+- Cool neutral `paper`/`raised`/`line`/`ink`/`muted`, one brand colour `hold` (blue), meaning colours `won` (green) and `gap` (amber). No red.
+- Bricolage Grotesque (display), Instrument Sans (text), IBM Plex Mono for every money figure (tabular nums). Self-host via `@fontsource/*`.
+- Flat fields, 1px borders, radius 4/8/12, one hairline shadow. No gradients, no glass, no emoji icons, no generated photoreal faces.
+- Voice: lead with the number, buttons are verbs, no exclamation marks, honest about the simulation ("against your range").
+- Map tokens into Tailwind; never retype hex values in components.
 
 ## Next.js
 This is Next.js 16 (see AGENTS.md). Read `node_modules/next/dist/docs/` before using an API you are unsure of.

@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Holdline Brandbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  :root {
+    --paper: #f4f6f8; --raised: #ffffff; --line: #dce1e7;
+    --ink: #101820; --muted: #5a6674;
+    --hold: #1b4dff; --on-hold: #ffffff; --hold-tint: #e4ebff;
+    --won: #0e7a3e; --won-tint: #ddf3e6;
+    --gap: #b45309; --gap-tint: #fbebd6;
+    --shadow-raise: 0 1px 2px rgba(16,24,32,0.08);
+    --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-pill: 999px;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0c1218; --raised: #151d26; --line: #26303b;
+      --ink: #eef1f5; --muted: #9aa6b4;
+      --hold: #6c8bff; --on-hold: #0c1218; --hold-tint: #1a2646;
+      --won: #3dd68c; --won-tint: #10301f;
+      --gap: #ffb454; --gap-tint: #33250f;
+      --shadow-raise: 0 1px 2px rgba(0,0,0,0.5);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0c1218; --raised: #151d26; --line: #26303b;
+    --ink: #eef1f5; --muted: #9aa6b4;
+    --hold: #6c8bff; --on-hold: #0c1218; --hold-tint: #1a2646;
+    --won: #3dd68c; --won-tint: #10301f;
+    --gap: #ffb454; --gap-tint: #33250f;
+    --shadow-raise: 0 1px 2px rgba(0,0,0,0.5);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/24px var(--font-sans); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: var(--space-6) var(--space-4) var(--space-16); }
+  a { color: var(--hold); }
+  :focus-visible { outline: 2px solid var(--hold); outline-offset: 2px; }
+
+  header.top { position: sticky; top: 0; z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+  header.top .in { max-width: 1040px; margin: 0 auto; padding: var(--space-3) var(--space-4); display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+  header.top b { font: 700 18px var(--font-display); letter-spacing: -0.01em; margin-right: auto; }
+  nav { display: flex; gap: var(--space-4); flex-wrap: wrap; font: 500 14px var(--font-sans); }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a:hover { color: var(--ink); }
+  #theme { height: 32px; padding: 0 var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--raised); color: var(--ink); font: 500 13px var(--font-sans); cursor: pointer; }
+
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-8); align-items: end; padding-block: var(--space-12) var(--space-8); }
+  .hero h1 { font: 700 clamp(56px, 11vw, 112px)/0.92 var(--font-display); letter-spacing: -0.02em; margin: 0; }
+  .hero p { margin: var(--space-2) 0 0; color: var(--muted); font-size: 16px; }
+  .bars { display: flex; flex-direction: column; gap: var(--space-4); }
+  .bars .r { display: flex; height: 64px; }
+  .bars .r > div { border-radius: var(--radius-sm); }
+  .bars .ink { background: var(--ink); width: 90%;
+    background-image: radial-gradient(circle, var(--paper) 2px, transparent 2.5px); background-size: 24px 18px; background-position: 12px 9px; background-color: var(--ink); }
+  .bars .hold { background: var(--hold); width: 70%; }
+  .bars .gap { background: var(--gap); width: 20%; }
+  .bars .won { background: var(--won); width: 55%; }
+  .bars .lbl { font: 600 12px/16px var(--font-sans); letter-spacing: 0.06em; color: var(--muted); margin-bottom: var(--space-1); }
+
+  section { padding-top: var(--space-12); }
+  h2 { font: 700 40px/42px var(--font-display); letter-spacing: -0.015em; margin: 0 0 var(--space-2); }
+  h3 { font: 600 22px/28px var(--font-sans); margin: var(--space-8) 0 var(--space-3); }
+  .lead { color: var(--muted); max-width: 65ch; margin: 0 0 var(--space-6); }
+  p { max-width: 70ch; }
+  .label { font: 600 12px/16px var(--font-sans); letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; }
+  .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+  .grid { display: grid; gap: var(--space-4); }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  .card { background: var(--raised); border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--space-4); box-shadow: var(--shadow-raise); min-width: 0; }
+
+  .sw { border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; background: var(--raised); }
+  .sw .c { height: 72px; border-bottom: 1px solid var(--line); }
+  .sw .t { padding: var(--space-3); }
+  .sw .n { font: 600 14px var(--font-sans); }
+  .sw .h { font: 500 12px var(--font-mono); color: var(--muted); margin-top: 2px; }
+  .sw .u { font: 400 13px/18px var(--font-sans); color: var(--muted); margin-top: var(--space-2); }
+
+  .specimen { border-bottom: 1px solid var(--line); padding: var(--space-4) 0; display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: var(--space-4); align-items: baseline; }
+  .specimen .k { font: 500 12px var(--font-mono); color: var(--muted); }
+  @media (max-width: 560px) { .hero { grid-template-columns: 1fr; } .specimen { grid-template-columns: 1fr; gap: var(--space-1); } }
+
+  .scale { display: flex; flex-direction: column; gap: var(--space-2); }
+  .scale .row { display: grid; grid-template-columns: 120px 56px minmax(0, 1fr); gap: var(--space-3); align-items: center; font: 500 12px var(--font-mono); color: var(--muted); }
+  .scale .bar { height: 12px; background: var(--hold); border-radius: var(--radius-sm); }
+  .radii { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+  .radii div { width: 96px; height: 64px; background: var(--hold-tint); border: 1px solid var(--hold); display: grid; place-items: center; font: 500 12px var(--font-mono); color: var(--ink); }
+
+  /* components */
+  .btn { height: 44px; padding: 0 var(--space-4); border-radius: var(--radius-md); font: 600 16px var(--font-sans); cursor: pointer; border: 1px solid transparent; }
+  .btn.primary { background: var(--hold); color: var(--on-hold); }
+  .btn.secondary { background: var(--raised); color: var(--ink); border-color: var(--line); }
+  .btn.disabled { background: var(--line); color: var(--muted); cursor: not-allowed; }
+  .row-flex { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; }
+
+  .meter { display: grid; grid-template-columns: 80px minmax(0, 1fr) auto; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
+  .meter .track { height: 8px; border-radius: var(--radius-pill); background: var(--line); overflow: hidden; }
+  .meter .fill { height: 100%; }
+  .meter .value { font: 500 18px/24px var(--font-mono); font-variant-numeric: tabular-nums; min-width: 96px; text-align: right; }
+  .up { color: var(--won); } .down { color: var(--gap); }
+
+  .chat { display: flex; flex-direction: column; gap: var(--space-4); }
+  .turn { display: flex; flex-direction: column; gap: var(--space-1); max-width: 85%; }
+  .turn.you { align-self: flex-end; align-items: flex-end; }
+  .bubble { padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); }
+  .you .bubble { background: var(--hold-tint); }
+  .them .bubble { background: var(--raised); border: 1px solid var(--line); }
+
+  .ledger .row { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: var(--space-3); align-items: baseline; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--line); border-radius: var(--radius-sm); }
+  .ledger .good { background: var(--won-tint); } .ledger .cost { background: var(--gap-tint); } .ledger .neutral { background: var(--raised); }
+  .ledger .fx { font: 500 15px var(--font-mono); white-space: nowrap; }
+  .ledger .good .fx { color: var(--won); } .ledger .cost .fx { color: var(--gap); } .ledger .neutral .fx { color: var(--muted); }
+  .ledger .nn { font: 500 14px var(--font-mono); color: var(--muted); }
+  .ledger .note { font-size: 14px; line-height: 20px; }
+  .figure-xl { font: 500 48px/48px var(--font-mono); color: var(--gap); font-variant-numeric: tabular-nums; margin-top: var(--space-1); }
+
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: var(--space-3); border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font: 600 12px var(--font-sans); letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; }
+  .scroll { overflow-x: auto; }
+  ul.clean { margin: 0; padding-left: 20px; } ul.clean li { margin-bottom: var(--space-2); max-width: 70ch; }
+  ol.clean { margin: 0; padding-left: 22px; } ol.clean li { margin-bottom: var(--space-2); max-width: 70ch; }
+  code { font: 500 13px var(--font-mono); background: var(--raised); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 1px 6px; }
+  footer { margin-top: var(--space-16); padding-top: var(--space-6); border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  @media (prefers-reduced-motion: no-preference) { .meter .fill { transition: width 200ms ease-out; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="in">
+    <b>Holdline</b>
+    <nav>
+      <a href="#idea">Idea</a><a href="#color">Colour</a><a href="#type">Type</a><a href="#shape">Shape</a><a href="#components">Components</a><a href="#voice">Voice</a><a href="#stack">UI stack</a><a href="#rules">Rules</a>
+    </nav>
+    <button id="theme" type="button" aria-label="Toggle theme">Theme: auto</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div>
+      <h1>Holdline</h1>
+      <p>Rehearse the conversation before it costs you.</p>
+    </div>
+    <div class="bars" aria-hidden="true">
+      <div><div class="lbl">Ceiling</div><div class="r"><div class="ink"></div></div></div>
+      <div><div class="lbl">Where you stopped, and the gap</div><div class="r"><div class="hold"></div><div class="gap"></div></div></div>
+      <div><div class="lbl">After the replay</div><div class="r"><div class="won"></div></div></div>
+    </div>
+  </div>
+
+  <section id="idea">
+    <h2>Brand idea</h2>
+    <p class="lead">"Holdline" is a working name. Change it in the heading and the title if the team picks another.</p>
+    <div class="grid g2">
+      <div class="card">
+        <div class="label">The product</div>
+        <p>A web simulator for money conversations: a raise, an offer, rent, a bill, a card rate. The user plays the conversation against a counterpart who does not give in for free, then sees how much money was left on the table and on which move.</p>
+      </div>
+      <div class="card">
+        <div class="label">The picture</div>
+        <p>Every negotiation is two numbers and a gap between them: what the other side could pay, and where you stopped. The identity is built from that picture. Horizontal bars, one big mono figure, one amber gap. Nothing decorative that does not carry a number.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="color">
+    <h2>Colour</h2>
+    <p class="lead">A cool neutral ground, one brand hue, and two meaning colours. Dark is a full theme, not an inversion. Meaning colours always travel with a word or sign, and green and amber differ in lightness as well as hue. There is no red: a missed chance is not an error.</p>
+
+    <div class="grid g3">
+      <div class="sw"><div class="c" style="background: var(--paper)"></div><div class="t"><div class="n">paper</div><div class="h">#F4F6F8 · #0C1218</div><div class="u">Page background. A cool grey, never pure white.</div></div></div>
+      <div class="sw"><div class="c" style="background: var(--raised)"></div><div class="t"><div class="n">raised</div><div class="h">#FFFFFF · #151D26</div><div class="u">Cards, chat panel, inputs.</div></div></div>
+      <div class="sw"><div class="c" style="background: var(--line)"></div><div class="t"><div class="n">line</div><div class="h">#DCE1E7 · #26303B</div><div class="u">1px hairlines. Decoration only.</div></div></div>
+      <div class="sw"><div class="c" style="background: var(--ink)"></div><div class="t"><div class="n">ink</div><div class="h">#101820 · #EEF1F5</div><div class="u">Primary text and the ceiling bar.</div></div></div>
+      <div class="sw"><div class="c" style="background: var(--muted)"></div><div class="t"><div class="n">muted</div><div class="h">#5A6674 · #9AA6B4</div><div class="u">Secondary text, captions, labels.</div></div></div>
+      <div class="sw"><div class="c" style="background: var(--hold)"></div><div class="t"><div class="n">hold</div><div class="h">#1B4DFF · #6C8BFF</div><div class="u">Brand: primary buttons, links, focus, the user's own offers. A field, never a gradient.</div></div></div>
+      <div class="sw"><div class="c" style="background: var(--hold-tint)"></div><div class="t"><div class="n">hold-tint</div><div class="h">#E4EBFF · #1A2646</div><div class="u">The user's bubble, selected states.</div></div></div>
+      <div class="sw"><div class="c" style="background: var(--won)"></div><div class="t"><div class="n">won</div><div class="h">#0E7A3E · #3DD68C</div><div class="u">Money gained, objections cleared. With a plus sign or label.</div></div></div>
+      <div class="sw"><div class="c" style="background: var(--won-tint)"></div><div class="t"><div class="n">won-tint</div><div class="h">#DDF3E6 · #10301F</div><div class="u">Won rows in the debrief.</div></div></div>
+      <div class="sw"><div class="c" style="background: var(--gap)"></div><div class="t"><div class="n">gap</div><div class="h">#B45309 · #FFB454</div><div class="u">Money left on the table. Pair with a label.</div></div></div>
+      <div class="sw"><div class="c" style="background: var(--gap-tint)"></div><div class="t"><div class="n">gap-tint</div><div class="h">#FBEBD6 · #33250F</div><div class="u">Gap rows in the debrief.</div></div></div>
+      <div class="sw"><div class="c" style="background: var(--on-hold)"></div><div class="t"><div class="n">on-hold</div><div class="h">#FFFFFF · #0C1218</div><div class="u">Text and icons on a hold field.</div></div></div>
+    </div>
+    <p class="lead" style="margin-top: var(--space-4)">Each swatch lists light then dark. Never put <code>gap</code> text on <code>won-tint</code> or the reverse: each tint pairs with its own colour.</p>
+  </section>
+
+  <section id="type">
+    <h2>Type</h2>
+    <p class="lead">Bricolage Grotesque for display, Instrument Sans for text, IBM Plex Mono for every money figure so digits line up (<code>font-variant-numeric: tabular-nums</code>). All three come from Google Fonts.</p>
+    <div>
+      <div class="specimen"><span class="k">display-xl · 64/60 · 700</span><span style="font: 700 64px/60px var(--font-display); letter-spacing: -0.02em">Hold the line.</span></div>
+      <div class="specimen"><span class="k">display-l · 40/42 · 700</span><span style="font: 700 40px/42px var(--font-display); letter-spacing: -0.015em">You left $8,000 on the table.</span></div>
+      <div class="specimen"><span class="k">heading · 22/28 · 600</span><span style="font: 600 22px/28px var(--font-sans)">Where the conversation turned</span></div>
+      <div class="specimen"><span class="k">body · 16/24 · 400</span><span>Budget is frozen until next quarter.</span></div>
+      <div class="specimen"><span class="k">body-s · 14/20 · 400</span><span style="font-size:14px;line-height:20px">Patience drops when you repeat the same number.</span></div>
+      <div class="specimen"><span class="k">label · 12/16 · 600 · +0.06em</span><span class="label">Patience</span></div>
+      <div class="specimen"><span class="k">figure-xl · 48/48 · mono 500</span><span class="mono" style="font-size:48px;line-height:48px">$8,000</span></div>
+      <div class="specimen"><span class="k">figure · 18/24 · mono 500</span><span class="mono" style="font-size:18px;line-height:24px">$104,000</span></div>
+    </div>
+  </section>
+
+  <section id="shape">
+    <h2>Shape and space</h2>
+    <p class="lead">Flat fields, 1px <code>line</code> borders, radius 4/8/12, one hairline shadow. No gradients, no glass, no glow. Left-aligned on a 4px grid with a 16px side gutter on phones. The chat sits in one column of at most 720px; the debrief widens to two columns above 900px.</p>
+    <h3>Spacing</h3>
+    <div class="scale">
+      <div class="row"><span>space-1</span><span>4px</span><div class="bar" style="width:4px"></div></div>
+      <div class="row"><span>space-2</span><span>8px</span><div class="bar" style="width:8px"></div></div>
+      <div class="row"><span>space-3</span><span>12px</span><div class="bar" style="width:12px"></div></div>
+      <div class="row"><span>space-4</span><span>16px</span><div class="bar" style="width:16px"></div></div>
+      <div class="row"><span>space-6</span><span>24px</span><div class="bar" style="width:24px"></div></div>
+      <div class="row"><span>space-8</span><span>32px</span><div class="bar" style="width:32px"></div></div>
+      <div class="row"><span>space-12</span><span>48px</span><div class="bar" style="width:48px"></div></div>
+      <div class="row"><span>space-16</span><span>64px</span><div class="bar" style="width:64px"></div></div>
+    </div>
+    <h3>Radius</h3>
+    <div class="radii">
+      <div style="border-radius:4px">sm · 4</div>
+      <div style="border-radius:8px">md · 8</div>
+      <div style="border-radius:12px">lg · 12</div>
+      <div style="border-radius:999px">pill</div>
+    </div>
+    <p style="margin-top: var(--space-3)" class="lead">Pill radius is for meter tracks and status pills only. Motion: two things move, the typing indicator and meter changes (200ms ease-out). Respect <code>prefers-reduced-motion</code>. No page-load choreography.</p>
+    <h3>Imagery and icons</h3>
+    <p>Counterpart avatars are flat illustrations in one style, in <code>hold-tint</code>, <code>gap-tint</code> and <code>ink</code>. No generated photoreal faces. Icons are Lucide at 1.5px stroke, 20px, in <code>ink</code> or <code>muted</code>. No emoji as icons.</p>
+  </section>
+
+  <section id="components">
+    <h2>Components</h2>
+    <p class="lead">The signature elements: the offer bar (see the cover), the meter, the chat bubble and the ledger.</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <div class="label">Button</div>
+        <p style="margin: var(--space-2) 0 var(--space-4); color: var(--muted); font-size: 14px">44px high, radius-md, label in 16px 600. One primary per screen. Labels are verbs.</p>
+        <div class="row-flex">
+          <button class="btn primary" type="button">Start</button>
+          <button class="btn secondary" type="button">Replay this round</button>
+          <button class="btn disabled" type="button" disabled>See the debrief</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="label">Meter</div>
+        <p style="margin: var(--space-2) 0 var(--space-4); color: var(--muted); font-size: 14px">Patience and trust, 0 to 100. Below 25 the value turns amber and the word "low" appears, so colour is never the only signal.</p>
+        <div class="meter"><span class="label">Trust</span><div class="track"><div class="fill" style="width:68%;background:var(--hold)"></div></div><span class="value">68 <span class="up">+3</span></span></div>
+        <div class="meter" style="margin-bottom:0"><span class="label">Patience</span><div class="track"><div class="fill" style="width:18%;background:var(--ink)"></div></div><span class="value down">18 low</span></div>
+      </div>
+
+      <div class="card">
+        <div class="label">Message</div>
+        <div class="chat" style="margin-top: var(--space-4)">
+          <div class="turn them"><span class="label">Your manager</span><div class="bubble">Budget is frozen until next quarter. I can't move on the number.</div></div>
+          <div class="turn you"><span class="label">You</span><div class="bubble">I understand. The market range for this role is <span class="mono">$108,000</span> to <span class="mono">$118,000</span>. Can we agree on <span class="mono">$110,000</span> from January?</div></div>
+        </div>
+      </div>
+
+      <div class="card ledger">
+        <div class="label" style="margin-bottom: var(--space-3)">Ledger</div>
+        <div class="row good"><span class="nn">1</span><div><div class="label">Stated a number</div><div class="note">You opened at $118,000 with a reason.</div></div><span class="fx">Trust +3</span></div>
+        <div class="row cost"><span class="nn">4</span><div><div class="label">Conceded</div><div class="note">You dropped to $104,000 after one objection.</div></div><span class="fx">$8,000 left</span></div>
+        <div class="row neutral"><span class="nn">5</span><div><div class="label">Asked a question</div><div class="note">You asked what the budget cycle looks like.</div></div><span class="fx">no change</span></div>
+        <div class="label" style="margin-top: var(--space-6)">Left on the table</div>
+        <div class="figure-xl">$8,000</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="voice">
+    <h2>Voice</h2>
+    <p class="lead">Direct, calm, a little dry. A coach who has seen this conversation fifty times and does not flatter.</p>
+    <ul class="clean">
+      <li>Talk to the user as "you". Name the counterpart by role ("your manager"), never "the AI".</li>
+      <li>Lead with the number. "You stopped at $104,000. The ceiling was $112,000."</li>
+      <li>Say what a move did. Name the move type, then the fix.</li>
+      <li>Buttons are verbs: "Start", "Replay this round", "See the debrief".</li>
+      <li>No exclamation marks, no emoji, no "unlock", no "supercharge", no fear copy.</li>
+      <li>Be honest about the simulation. The ceiling is a scenario setting from the range the user entered. Say "against your range", never "your boss would have paid".</li>
+    </ul>
+    <div class="scroll" style="margin-top: var(--space-6)">
+      <table>
+        <thead><tr><th>Do</th><th>Don't</th></tr></thead>
+        <tbody>
+          <tr><td>You asked for $108,000 and gave no reason.</td><td>Oops! Try to be more confident.</td></tr>
+          <tr><td>Left on the table: $8,000</td><td>You lost out big time.</td></tr>
+          <tr><td>Replay this round</td><td>Try again!</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="stack">
+    <h2>Product UI stack</h2>
+    <ul class="clean">
+      <li><b>Next.js + TypeScript</b> for the app and API routes.</li>
+      <li><b>Tailwind CSS</b> with these tokens mapped to the theme (<code>colors.paper</code>, <code>colors.hold</code>, <code>fontFamily.display</code>). Never retype hex.</li>
+      <li><b>shadcn/ui</b> (Radix) for dialog, tabs, tooltip, progress and form controls, restyled with these tokens. Do not ship its default grey and zinc.</li>
+      <li><b>Lucide</b> icons, 1.5px stroke, 20px.</li>
+      <li><b>CSS transitions</b> for the meters and message entry. Framer Motion only if needed.</li>
+      <li><b>Sonner</b> for toasts, if any.</li>
+    </ul>
+    <h3>Pages, in build order</h3>
+    <ol class="clean">
+      <li>Quiz: one question per screen with a progress track.</li>
+      <li>Session: chat plus the two meters.</li>
+      <li>Debrief: offer bar, ledger, "Replay this round".</li>
+      <li>Pricing: plain, no countdowns, trial and renewal prices shown before payment.</li>
+    </ol>
+  </section>
+
+  <section id="rules">
+    <h2>Usage rules</h2>
+    <ol class="clean">
+      <li>Body text is <code>ink</code> on <code>paper</code> or <code>raised</code>. Secondary text is <code>muted</code>, never lighter.</li>
+      <li>The primary button is <code>hold</code> with <code>on-hold</code> text. One per screen.</li>
+      <li>The user's bubble is <code>hold-tint</code> with <code>ink</code> text. The counterpart's is <code>raised</code> with a <code>line</code> border.</li>
+      <li>Money figures use the mono face. Gains are <code>won</code> with a plus, gaps are <code>gap</code> with the word "left".</li>
+      <li>Focus ring: 2px <code>hold</code> outline, 2px offset, on every interactive element.</li>
+      <li>Check contrast in both themes. Text is at least 4.5:1.</li>
+    </ol>
+    <h3>Avoid</h3>
+    <ul class="clean">
+      <li>A purple or blue gradient hero, or a glossy gradient button.</li>
+      <li>Inter or Space Grotesk as the "safe" face.</li>
+      <li>Emoji cards, and accent bars on the left edge of rounded cards.</li>
+      <li>A generated photoreal face for the counterpart.</li>
+      <li>Countdown timers, "only 3 spots" and other pressure patterns.</li>
+      <li>Copying Coursiv's or Zimran's marks, colours or mascot. Learn from the quiz, plan, paywall order, not the look.</li>
+    </ul>
+  </section>
+
+  <footer>Holdline brandbook · v1 · 2026-11-14</footer>
+</main>
+
+<script>
+  (function () {
+    var root = document.documentElement, btn = document.getElementById('theme');
+    var states = ['auto', 'light', 'dark'], i = 0;
+    try { var s = localStorage.getItem('hl-theme'); if (s && states.indexOf(s) > -1) i = states.indexOf(s); } catch (e) {}
+    function apply() {
+      var v = states[i];
+      if (v === 'auto') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', v);
+      btn.textContent = 'Theme: ' + v;
+      try { localStorage.setItem('hl-theme', v); } catch (e) {}
+    }
+    btn.addEventListener('click', function () { i = (i + 1) % states.length; apply(); });
+    apply();
+  })();
+</script>
+</body>
+</html>
