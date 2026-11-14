@@ -33,7 +33,7 @@ Hackathon deadline: **15 Nov 2026, 11:00 Asia/Almaty (code freeze)**. Prod: http
 - Small commits, imperative subject lines in English.
 - Never commit `.env*` files, keys, tokens or real personal data. Demo data must be clearly fictional.
 - Do not run `docker`, `sudo`, `systemctl` or anything touching other projects on this server.
-- Dev server: `npm run dev -- -H 127.0.0.1 -p <your port>` (ports in `docs/TEAM.md`). Never bind 0.0.0.0.
+- Setup, dev database tunnel and push flow: `docs/TEAM.md`. Commits must be authored as Maksim (the relay rejects anything else).
 
 ## Design rules
 `docs/brandbook.html` is the source of truth. In short:
