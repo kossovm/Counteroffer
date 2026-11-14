@@ -3,7 +3,11 @@
 #   docker exec nice-almaty-caddy-1 caddy reload --config /etc/caddy/Caddyfile
 # Also commit this block to the nice-almaty repo, otherwise its next deploy will overwrite it.
 
-counter.example.com {
+counter.YOUR-DOMAIN {
 	encode zstd gzip
 	reverse_proxy counter-app:3000
 }
+
+# NOTE: /home/maksim/nice-almaty/Caddyfile is bind-mounted as a single file.
+# Append with `cat >> Caddyfile` (keeps the inode). Editors and `sed -i` replace the file,
+# and the running container would keep reading the old copy.

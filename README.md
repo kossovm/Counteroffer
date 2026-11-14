@@ -1,4 +1,4 @@
-# Counter
+# Counteroffer
 
 **Rehearse the conversations that cost you money.**
 Practice the raise, the job offer and the rent talk against an AI counterpart who does not fold, then see exactly how much you left on the table and which line would have won it back.

@@ -11,7 +11,8 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
-  IMAGE: ghcr.io/${{ github.repository }}
+  # GHCR requires lowercase names; the repository is "Counteroffer" with a capital C.
+  IMAGE: ghcr.io/kossovm/counteroffer
 
 jobs:
   check:
