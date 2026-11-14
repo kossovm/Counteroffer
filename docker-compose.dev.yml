@@ -1,0 +1,24 @@
+# Shared development database on the server (one Postgres, one database per developer).
+# Started once by maksim:  docker compose -p counter-dev -f docker-compose.dev.yml up -d
+# Reachable only from the server itself: 127.0.0.1:55433
+name: counter-dev
+
+services:
+  db:
+    image: postgres:16
+    container_name: counter-dev-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: counter
+      POSTGRES_PASSWORD: counter-dev
+      POSTGRES_DB: counter_maksim
+    command: postgres -c shared_buffers=64MB -c max_connections=50
+    ports:
+      - "127.0.0.1:55433:5432"
+    volumes:
+      - devdata:/var/lib/postgresql/data
+      - ./deploy/dev-db-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    mem_limit: 384m
+
+volumes:
+  devdata:
