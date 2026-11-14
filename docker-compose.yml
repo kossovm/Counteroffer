@@ -9,7 +9,7 @@ name: counter
 
 services:
   app:
-    image: ghcr.io/kossovm/counter:${IMAGE_TAG:-latest}
+    image: ghcr.io/kossovm/counteroffer:${IMAGE_TAG:-latest}
     container_name: counter-app
     restart: unless-stopped
     env_file: .env

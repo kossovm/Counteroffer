@@ -15,7 +15,7 @@ FROM node:22-alpine AS run
 WORKDIR /app
 ARG APP_VERSION=dev
 LABEL app=counter \
-      org.opencontainers.image.source="https://github.com/kossovm/counter"
+      org.opencontainers.image.source="https://github.com/kossovm/counteroffer"
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
     PORT=3000 \
