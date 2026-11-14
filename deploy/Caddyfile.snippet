@@ -1,0 +1,9 @@
+# Append to the existing Caddyfile used by nice-almaty-caddy-1, then reload without downtime:
+#   docker exec nice-almaty-caddy-1 caddy validate --config /etc/caddy/Caddyfile
+#   docker exec nice-almaty-caddy-1 caddy reload --config /etc/caddy/Caddyfile
+# Also commit this block to the nice-almaty repo, otherwise its next deploy will overwrite it.
+
+counter.example.com {
+	encode zstd gzip
+	reverse_proxy counter-app:3000
+}

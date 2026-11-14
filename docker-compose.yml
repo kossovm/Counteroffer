@@ -1,0 +1,58 @@
+# Production stack. Lives on the server in ~/counter next to a .env file (see .env.example).
+# Deployed with:  docker compose -p counter pull && docker compose -p counter up -d
+#
+# Isolation from the other app on the same host:
+#  - no published ports at all; Caddy (already running) reaches counter-app over a shared docker network
+#  - the database sits on a private network the proxy cannot see
+#  - hard memory caps so this stack can never starve the neighbour
+name: counter
+
+services:
+  app:
+    image: ghcr.io/kossovm/counter:${IMAGE_TAG:-latest}
+    container_name: counter-app
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://counter:${POSTGRES_PASSWORD}@counter-db:5432/counter
+      NODE_OPTIONS: --max-old-space-size=256
+    depends_on:
+      db:
+        condition: service_healthy
+    mem_limit: 384m
+    cpus: 1.0
+    networks: [internal, proxy]
+
+  db:
+    image: postgres:16
+    container_name: counter-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: counter
+      POSTGRES_DB: counter
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    command: >
+      postgres
+      -c shared_buffers=32MB
+      -c max_connections=20
+      -c work_mem=2MB
+      -c maintenance_work_mem=16MB
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U counter -d counter"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    mem_limit: 192m
+    cpus: 0.5
+    networks: [internal]
+
+volumes:
+  pgdata:
+
+networks:
+  internal:
+  proxy:
+    external: true
+    name: ${PROXY_NETWORK:-nice-almaty_default}
