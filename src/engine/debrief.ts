@@ -44,6 +44,7 @@ export function buildDebrief(config: ScenarioConfig, final: CoreState, history: 
       }
     }
     if (t.derived === "accept" && t.turn === 1) mistakes.push("accepted_first_offer");
+    else if (t.events.some((e) => e.type === "accepted_below_limit")) mistakes.push("settled_early");
 
     return {
       turn: t.turn,

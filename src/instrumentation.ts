@@ -11,4 +11,7 @@ export async function register() {
   const { runMigrations } = await import("./db/migrate");
   await runMigrations();
   console.log("[startup] migrations applied");
+  const { seedDemoUsers } = await import("./lib/server/demo-users");
+  await seedDemoUsers();
+  console.log("[startup] demo users ready");
 }

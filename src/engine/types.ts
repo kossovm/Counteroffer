@@ -236,6 +236,7 @@ export type MistakeCode =
   | "number_without_reason" // named a number with no argument
   | "conceded_without_reason" // lowered own ask with nothing in return
   | "accepted_first_offer"
+  | "settled_early" // said yes while the counterpart still had room
   | "ignored_objection" // kept pushing a number while an objection stood
   | "ultimatum_without_trust"
   | "walked_into_walkaway"; // pushed patience to zero
